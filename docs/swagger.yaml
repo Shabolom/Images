@@ -1,0 +1,70 @@
+definitions:
+  models.Error:
+    properties:
+      code:
+        type: integer
+      error:
+        type: string
+    type: object
+host: localhost:8888
+info:
+  contact: {}
+  title: cmd Service
+  version: 1.0.0
+paths:
+  /:
+    post:
+      consumes:
+      - image/jpeg
+      parameters:
+      - description: Body with file
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: заносим в базу данные файла и сохраняем локально сам файл, а так же
+        создаем каждый день новую директорию
+      tags:
+      - photo
+  /{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: id of photo
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "201":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: делаем soft мягкое удаление айди из базы данных
+      tags:
+      - photo
+swagger: "2.0"

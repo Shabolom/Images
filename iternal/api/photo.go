@@ -51,7 +51,7 @@ func (p *Photo) Post(c *gin.Context) {
 	}
 	dir := "static/" + timeString + "/"
 
-	fileName := fmt.Sprintf("%d.jpg", time.Now().Unix())
+	fileName := fmt.Sprintf("%v.jpg", time.Now().Unix())
 
 	filePath := filepath.Join(dir, fileName)
 
@@ -91,7 +91,7 @@ func (p *Photo) Post(c *gin.Context) {
 func (p *Photo) Delete(c *gin.Context) {
 	id := c.Param("id")
 
-	err := photoService.GetID(id)
+	err := photoService.Del(id)
 
 	if err != nil {
 		log.WithField("component", "rest").Warn(err)

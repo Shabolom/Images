@@ -33,8 +33,8 @@ func (ps *PhotoServise) Post(image *multipart.FileHeader, path string) error {
 	return nil
 }
 
-func (ps *PhotoServise) GetID(key string) error {
-	err := photoRepo.GetID(key)
+func (ps *PhotoServise) Del(key string) error {
+	err := photoRepo.Del(key)
 	if err != nil {
 		return err
 	}

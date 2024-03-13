@@ -20,7 +20,7 @@ func (pr *PhotoRepo) Post(domain domain.Photos) error {
 	return nil
 }
 
-func (pr *PhotoRepo) GetID(key string) error {
+func (pr *PhotoRepo) Del(key string) error {
 	var photo domain.Photos
 
 	err := config.DB.

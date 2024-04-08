@@ -32,3 +32,15 @@ func (pr *PhotoRepo) Del(key string) error {
 	}
 	return nil
 }
+func (pr *PhotoRepo) Find(key string) (error, domain.Photos) {
+	var photo domain.Photos
+
+	err := config.DB.
+		Where("id = ?", key).
+		First(&photo).
+		Error
+	if err != nil {
+		return err, domain.Photos{}
+	}
+	return nil, photo
+}

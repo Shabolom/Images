@@ -101,3 +101,30 @@ func (p *Photo) Delete(c *gin.Context) {
 
 	c.JSON(http.StatusOK, "ваш файл успешно удален")
 }
+
+func (p *Photo) Get(c *gin.Context) {
+	id := c.Param("id")
+
+	err, result := photoService.Get(id)
+	if err != nil {
+		log.WithField("component", "rest").Warn(err)
+		tools.CreateError(http.StatusBadRequest, err, c)
+		return
+	}
+
+	photo, err := os.ReadFile(result.Path)
+	if err != nil {
+		log.WithField("component", "rest").Warn(err)
+		tools.CreateError(http.StatusBadRequest, err, c)
+		return
+	}
+
+	_, err = c.Writer.Write(photo)
+	if err != nil {
+		log.WithField("component", "rest").Warn(err)
+		tools.CreateError(http.StatusBadRequest, err, c)
+		return
+	}
+
+	c.JSON(http.StatusOK, "")
+}

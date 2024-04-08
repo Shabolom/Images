@@ -40,3 +40,11 @@ func (ps *PhotoServise) Del(key string) error {
 	}
 	return nil
 }
+
+func (ps *PhotoServise) Get(key string) (error, domain.Photos) {
+	err, result := photoRepo.Find(key)
+	if err != nil {
+		return err, domain.Photos{}
+	}
+	return nil, result
+}

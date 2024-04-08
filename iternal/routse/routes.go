@@ -20,6 +20,7 @@ func SetupRouter() *gin.Engine {
 	authRequired.StaticFS("/static", http.Dir("static"))
 	authRequired.POST("/", photo.Post)
 	authRequired.DELETE("/:id", photo.Delete)
+	authRequired.GET("/get/:id", photo.Get)
 
 	return r
 }
